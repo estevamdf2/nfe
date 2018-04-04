@@ -442,4 +442,11 @@ public class NFAutorizador31Test {
         final List<NFUnidadeFederativa> ufsDaSVRS = Arrays.asList(NFUnidadeFederativa.AC, NFUnidadeFederativa.AL, NFUnidadeFederativa.AP, NFUnidadeFederativa.DF, NFUnidadeFederativa.ES, NFUnidadeFederativa.PB, NFUnidadeFederativa.RJ, NFUnidadeFederativa.RN, NFUnidadeFederativa.RO, NFUnidadeFederativa.RR, NFUnidadeFederativa.SC, NFUnidadeFederativa.SE, NFUnidadeFederativa.TO);
         Assert.assertTrue(ufsDaSVRS.equals(Arrays.asList(NFAutorizador31.SVRS.getUFs())));
     }
+    
+    @Test 
+    public void deveObterValueOfTipoEmissao() {
+    	Assert.assertEquals(NFAutorizador31.SVRS, NFAutorizador31.valueOfCodigoUF(NFUnidadeFederativa.AC));
+    	Assert.assertEquals(NFAutorizador31.SVRS, NFAutorizador31.valueOfTipoEmissao(NFTipoEmissao.CONTINGENCIA_SVCRS, NFUnidadeFederativa.AC));
+    	Assert.assertEquals(NFAutorizador31.SCAN, NFAutorizador31.valueOfTipoEmissao(NFTipoEmissao.CONTINGENCIA_SVCAN, NFUnidadeFederativa.AC));
+    }
 }

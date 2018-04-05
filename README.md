@@ -28,7 +28,7 @@ Caso não possua conhecimento técnico para criar notas fiscais, um profissional
 
 ## Como usar
 Basicamente você precisará de uma implementação de **NFeConfig** (exemplificado abaixo), com informações de tipo de emissão, certificados
-digitais, e uma instância da **WsFacade**, essa classe tem a responsabilidade de fazer a ponte entre o seu sistema e a
+digitais, ambiente de emissão e uma instância da **WsFacade**, essa classe tem a responsabilidade de fazer a ponte entre o seu sistema e a
 comunicação com os webservices da Sefaz.
 
 ```java
@@ -52,6 +52,17 @@ public class NFeConfigTeste extends NFeConfig {
     public String getCadeiaCertificadosSenha() {
         return "senha_cadeia";
     }
+
+    @Override
+    public NFAmbiente getAmbiente() {
+	   
+	if(ambiente.equalsIgnoreCase("PRODUCAO")) {
+		return NFAmbiente.PRODUCAO;
+	} else {
+		return NFAmbiente.HOMOLOGACAO;
+	}
+    }
+
 
     @Override
     public KeyStore getCertificadoKeyStore() throws KeyStoreException {
@@ -82,6 +93,9 @@ public class NFeConfigTeste extends NFeConfig {
     }
 }
 ```
+###Definição do ambiente
+Necessário sobrescrever o método getAmbiente() ele é o responsável por enviar as notas para o ambiente escolhido Homologação ou Produção.
+Caso não seja implementado por padrão o ambiente escolhido para envio será o ambiente de homologação.
 
 ### Alguns exemplos
 Considere para os exemplos abaixo que **config** seja uma instância da implementação da interface **NFeConfig**.
